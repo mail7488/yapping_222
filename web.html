@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Absen</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #f4f4f9;
+      color: #333;
+    }
+    .navbar {
+      background-color: #1e90ff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: 4rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #0f78d4;
+    }
+    #absen-section {
+      display: none;
+    }
+    .success {
+      color: green;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Silahkan Absen</h1>
+    <div>
+      <a href="#">Beranda</a>
+      <a href="#">Tentang</a>
+    </div>
+  </div>
+
+  <div class="container" id="login-section">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Masukkan username"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Masukkan password"/>
+    </div>
+    <button onclick="login()">Masuk</button>
+    <div id="login-message"></div>
+  </div>
+
+  <div class="container" id="absen-section">
+    <h2>Form Absensi</h2>
+    <div class="form-group">
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Masukkan nama"/>
+    </div>
+    <button onclick="absen()">Absen</button>
+    <div id="absen-message" class="success"></div>
+  </div>
+
+  <script>
+    const userDB = {
+      username: "admin",
+      password: "123456"
+    };
+
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("login-message");
+
+      if (username === userDB.username && password === userDB.password) {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("absen-section").style.display = "block";
+      } else {
+        message.textContent = "Username atau password salah!";
+        message.style.color = "red";
+      }
+    }
+
+    function absen() {
+      const nama = document.getElementById("nama").value;
+      const message = document.getElementById("absen-message");
+      if (nama) {
+        message.textContent = `Terima kasih, ${nama}, absensi Anda telah dicatat!`;
+      } else {
+        message.textContent = "Nama tidak boleh kosong!";
+        message.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
