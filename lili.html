@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BerasPremium</title>
+<style>
+  /* Reset & base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: #f9f9f9;
+    color: #333;
+    min-height: 100vh;
+  }
+  a {
+    color: #007a29;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  /* Container */
+  .container {
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  /* Header */
+  header {
+    background-color: #139c2a;
+    color: white;
+    padding: 1rem 0;
+  }
+  header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  nav ul li {
+    font-weight: 600;
+  }
+  nav ul li a {
+    color: white;
+    font-weight: 600;
+  }
+  nav ul li a.active,
+  nav ul li a:hover {
+    text-decoration: underline;
+    color: #f0f0f0;
+  }
+  /* Hamburger menu */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  .menu-toggle div {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 4px 0;
+    border-radius: 2px;
+  }
+  /* Hero */
+  #hero {
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 0 0 10px rgba(0,0,0,0.6);
+    text-align: center;
+    padding: 0 1rem;
+  }
+  #hero h2 {
+    font-size: 2.4rem;
+    max-width: 700px;
+    margin-bottom: 1rem;
+  }
+  #hero button {
+    background-color: #f4b41a;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    color: #222;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px #c89915;
+    transition: background-color 0.3s ease;
+  }
+  #hero button:hover {
+    background-color: #ddb218;
+  }
+  /* Sections */
+  section {
+    padding: 3rem 0;
+  }
+  section h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #139c2a;
+    letter-spacing: 1.5px;
+  }
+  /* About */
+  #about p {
+    max-width: 750px;
+    margin: auto;
+    font-size: 1.1rem;
+    color: #444;
+    text-align: center;
+  }
+  /* Products */
+  #products .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: auto;
+  }
+  .product-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+  .product-card img {
+    width: 100%;
+    display: block;
+    height: 180px;
+    object-fit: cover;
+  }
+  .product-content {
+    padding: 1rem 1rem 1.4rem;
+  }
+  .product-content h4 {
+    margin-bottom: 0.6rem;
+    color: #139c2a;
+  }
+  .product-content p {
+    color: #555;
+    font-size: 0.95rem;
+  }
+  .product-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f4b41a;
+    color: #222;
+    padding: 1rem;
+    font-size: 0.95rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .product-card.active .product-details {
+    max-height: 180px;
+  }
+  /* Contact */
+  #contact {
+    background: #139c2a;
+    color: white;
+    padding: 3rem 1rem;
+  }
+  #contact .container {
+    max-width: 700px;
+  }
+  #contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  #contact label {
+    font-weight: 600;
+  }
+  #contact input, #contact textarea {
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  #contact input[type="submit"] {
+    background: #f4b41a;
+    border: none;
+    color: #222;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #contact input[type="submit"]:hover {
+    background: #ddb218;
+  }
+  /* Footer */
+  footer {
+    background: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  /* Responsive */
+  @media(max-width:768px) {
+    nav ul {
+      display: none;
+      flex-direction: column;
+      background: #139c2a;
+      position: absolute;
+      top: 62px;
+      right: 1rem;
+      border-radius: 8px;
+      width: 180px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      padding: 0.5rem 0;
+    }
+    nav ul.active {
+      display: flex;
+    }
+    nav ul li {
+      margin: 0.5rem 0;
+      text-align: center;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>BerasPremium</h1>
+    <nav>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">
+        <div></div><div></div><div></div>
+      </div>
+      <ul id="nav-menu">
+        <li><a href="#hero" class="active">Beranda</a></li>
+        <li><a href="#about">Tentang Kami</a></li>
+        <li><a href="#products">Produk</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="hero" role="banner">
+  <div>
+    <h2>Selamat Datang di BerasPremium<br />Pilihan Beras Berkualitas untuk Anda</h2>
+    <button onclick="scrollToSection('products')">Lihat Produk Kami</button>
+  </div>
+</section>
+
+<section id="about" aria-labelledby="about-title">
+  <h3 id="about-title">Tentang BerasPremium</h3>
+  <p>Kami adalah perusahaan yang bergerak di bidang perdagangan beras berkualitas premium, menyediakan berbagai jenis beras unggulan yang cocok untuk kebutuhan rumah tangga maupun bisnis Anda. Komitmen kami adalah menghadirkan produk segar, sehat, dan dengan harga terjangkau serta pelayanan terbaik.</p>
+</section>
+
+<section id="products" aria-labelledby="products-title">
+  <h3 id="products-title">Produk Beras Kami</h3>
+  <div class="product-list">
+    <article class="product-card" tabindex="0" aria-expanded="false">
+      <img src="beras putih.jpeg">
+      <div class="product-content">
+        <h4>Beras Putih Premium</h4>
+        <p>Beras putih kualitas terbaik, pulen dan wangi, cocok untuk segala kebutuhan.</p>
+      </div>
+      <div class="product-details">
+        <p>Asal: Jawa Tengah<br />Berat Kemasan: 5 kg dan 10 kg<br />Harga: Rp50.000/kg</p>
+      </div>
+    </article>
+    <article class="product-card" tabindex="0" aria-expanded="false">
+      <img src="beras merah.jpeg">
+      <div class="product-content">
+        <h4>Beras Merah Organik</h4>
+        <p>Beras merah organik sehat, kaya serat, ideal untuk gaya hidup sehat.</p>
+      </div>
+      <div class="product-details">
+        <p>Asal: Bali<br />Berat Kemasan: 3 kg dan 7 kg<br />Harga: Rp70.000/kg</p>
+      </div>
+    </article>
+    <article class="product-card" tabindex="0" aria-expanded="false">
+      <img src="ketan putih.jpeg">
+      <div class="product-content">
+        <h4>Beras Ketan Putih</h4>
+        <p>Beras ketan putih, pulen dan lengket, sempurna untuk kue dan jajanan tradisional.</p>
+      </div>
+      <div class="product-details">
+        <p>Asal: Sumatra Barat<br />Berat Kemasan: 2 kg dan 5 kg<br />Harga: Rp45.000/kg</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <h3 id="contact-title">Hubungi Kami</h3>
+    <form id="contact-form" aria-label="Formulir Kontak">
+      <label for="name">Nama Lengkap</label>
+      <input type="text" id="name" name="name" required placeholder="Masukkan nama lengkap Anda" />
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="contoh@email.com" />
+      
+      <label for="message">Pesan</label>
+      <textarea id="message" name="message" rows="5" required placeholder="Tulis pesan Anda"></textarea>
+      
+      <input type="submit" value="Kirim Pesan" />
+    </form>
+    <p id="form-message" role="alert" style="margin-top:1rem;"></p>
+  </div>
+</section>
+
+<footer role="contentinfo">
+  <p>© 2025 BerasPremium - By:ismail_devlop</p>
+</footer>
+
+<script>
+  // Navigation menu toggle for mobile
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+  // Close menu when a nav link is clicked (mobile)
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+    });
+  });
+
+  // Smooth scroll function for button and nav links
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if(el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Change active link on scroll
+  const sections = ['hero', 'about', 'products', 'contact'];
+  const navLinks = navMenu.querySelectorAll('a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sectionId => {
+      const sectionEl = document.getElementById(sectionId);
+      if(window.scrollY >= sectionEl.offsetTop - 100) {
+        current = sectionId;
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Product card expand details on click or enter key
+  const productCards = document.querySelectorAll('.product-card');
+  productCards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('active');
+      let expanded = card.classList.contains('active');
+      card.setAttribute('aria-expanded', expanded);
+    });
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  // Contact form submit handler (basic validation + feedback)
+  const contactForm = document.getElementById('contact-form');
+  const formMessage = document.getElementById('form-message');
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    // Simple feedback simulation
+    formMessage.style.color = '#f4b41a';
+    formMessage.textContent = 'Mengirim pesan...';
+    setTimeout(() => {
+      formMessage.style.color = '#22bb33';
+      formMessage.textContent = 'Pesan berhasil dikirim! Terima kasih sudah menghubungi kami.';
+      contactForm.reset();
+    }, 1500);
+  });
+</script>
+</body>
+</html>
+
